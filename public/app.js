@@ -1,9 +1,63 @@
 var  app = angular.module("myContact", []);
 
 
-app.controller('myContactController', ['$scope','$http', function($scope,$http){
+app.controller('myContactController', ['$scope','$http','contactFactory', 
+	         function($scope,$http,contactFactory){
 
-			refresh();
+             getContacts();
+          function getContacts(){
+          	contactFactory.getContacts()
+          	.then(function(response){
+          		console.log(response.data)
+          		$scope.contactList=response.data
+          	})
+          }
+
+	         
+	      $scope.createContact= function(){
+          	contactFactory.createContact($scope.contact)
+          	.then(function(response){
+          		console.log("from post"+response.data)
+          		getContacts();
+          		$scope.contact={};
+          	})
+          }
+
+
+          $scope.updateContact= function(){
+          	contactFactory.updateContact($scope.contact._id,$scope.contact)
+          	.then(function(response){
+          		console.log("from editContact"+response.data)
+          		
+          		getContacts();
+          	})
+          }
+
+         
+          $scope.editContact= function(id){
+          	contactFactory.editContact(id)
+          	.then(function(response){
+          		console.log("from editContact"+response.data)
+          		
+          		$scope.contact=response.data;
+          		getContacts();
+          	})
+          }
+
+          
+  $scope.removeContact= function(id){
+          	contactFactory.removeContact(id)
+          	.then(function(response){
+          		console.log("from editContact"+response.data)
+          		
+          		
+          		getContacts();
+          	})
+          }
+
+
+
+	/*		refresh();
 
 	$scope.createContact = function(){
 
@@ -49,6 +103,6 @@ app.controller('myContactController', ['$scope','$http', function($scope,$http){
 			.then(function(response){
 				refresh();
 			})
-	}
+	}*/
 	
 }])

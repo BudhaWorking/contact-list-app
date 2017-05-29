@@ -13,6 +13,7 @@
 			<table class="table" ng-controller="myContactController">
 				<thead>
 					<tr>
+						<th>Id</th>
 						<th>Name</th>
 						<th>Email</th>
 						<th>Mobile</th>
@@ -37,6 +38,7 @@
 					</td>
 					</tr>
 					<tr ng-repeat="contact in contactList">
+						<td>{{contact._id}}</td>
 						<td>{{contact.name}}</td>
 						<td>{{contact.email}}</td>
 						<td>{{contact.mobile}}</td>
@@ -53,5 +55,6 @@
 
 <script src="https://code.angularjs.org/1.6.4/angular.js" type="text/javascript"></script>
 <script src="app.js" type="text/javascript"></script>
+<script src="factory.js" type="text/javascript"></script>
 </body>
 </html>
